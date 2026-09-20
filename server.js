@@ -4,17 +4,20 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 8000;
 
-// 1. Info Endpoint (GET /)
-app.get('/', (req, res) => {
-  res.json({
-    apiversion: "1",
-    author: "ThaiMaster",
-    color: "#00E5FF",      // Neon Cyan
-    head: "tiger-king",     // Head style
-    tail: "bolt",           // Tail style
-    version: "1.0.0"
-  });
-});
+const infoResponse = {
+  apiversion: "1",
+  author: "ThaiMaster",
+  color: "#00E5FF",      // Neon Cyan
+  head: "tiger-king",     // Head style
+  tail: "bolt",           // Tail style
+  version: "1.0.0"
+};
+
+// 1. Info / Ping Endpoint (Supports GET and POST on /)
+app.get('/', (req, res) => res.json(infoResponse));
+app.post('/', (req, res) => res.json(infoResponse));
+app.get('/ping', (req, res) => res.send("pong"));
+app.post('/ping', (req, res) => res.send("pong"));
 
 // 2. Game Start (POST /start)
 app.post('/start', (req, res) => {
